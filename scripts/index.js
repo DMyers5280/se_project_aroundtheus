@@ -185,8 +185,8 @@ const validationOptions = {
   errorClass: "modal__error_visible",
 };
 
-const editFormValidator = new FormValidator(profileEditForm, validationOptions);
-const addCardFormValidator = new FormValidator(addCardForm, validationOptions);
+const editFormValidator = new FormValidator(validationOptions, profileEditForm);
+const addCardFormValidator = new FormValidator(validationOptions, addCardForm);
 
 editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
