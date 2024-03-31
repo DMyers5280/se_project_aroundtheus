@@ -11,6 +11,22 @@
   border-radius: 10px 10px 0 0;
 }
 
+.card__image:hover {
+  cursor: pointer;
+}
+
+.card__image_modal_caption {
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.52px;
+}
+
+.card__modal_image {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
 .card__description {
   display: flex;
   background-color: #fff;
@@ -44,7 +60,26 @@
   cursor: pointer;
 }
 
+.card__like-button_active {
+  background-image: url(../images/like-active.svg);
+}
+
 .card__like-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.card__delete-button {
+  background: transparent url(../images/delete-button.svg) center no-repeat;
+  width: 19.3px;
+  height: 18px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  margin: 18px 15px 323.7px 249px;
+}
+
+.card__delete-button:hover {
   cursor: pointer;
   opacity: 0.5;
 }
