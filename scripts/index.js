@@ -28,6 +28,8 @@ const initialCards = [
   },
 ];
 
+const cardData = initialCards;
+
 // Buttons and Other Dom Nodes
 
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -56,7 +58,6 @@ const cardImage = cardImageModal.querySelector(".card__modal_image");
 const cardImageModalCaption = cardImageModal.querySelector(
   ".card__image_modal_caption"
 );
-const contentModals = document.querySelectorAll(".modal");
 
 // Functions
 function openModal(modal) {
@@ -154,6 +155,21 @@ addCardFormValidator.enableValidation();
 // Card
 
 function renderCard(cardData) {
-  const card = new Card(cardData, "#card-template");
+  const card = new Card(cardData, "#card-template", handleImageClick(cardData));
   cardListEl.prepend(card.getView());
 }
+
+function handleImageClick(cardData) {
+  return function () {
+    openModal(cardImageModal);
+    cardImage.src = cardData.link;
+    cardImage.alt = cardData.name;
+    cardImageModalCaption.textContent = cardData.name;
+  };
+}
+
+cardImageModal.addEventListener("click", function (e) {
+  if (e.target.classList.contains("modal")) {
+    closeModal();
+  }
+});
