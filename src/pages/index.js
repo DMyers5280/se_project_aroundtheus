@@ -1,11 +1,11 @@
-import Section from "./Section.js";
-import UserInfo from "./UserInfo.js";
-import Modal from "./Modal.js";
-import ModalWithImage from "./ModalWithImage.js";
-import ModalWithForm from "./ModalWithForm.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import "../pages/index.css";
+import Section from "../scripts/Section.js";
+import UserInfo from "../scripts/UserInfo.js";
+import Modal from "../scripts/Modal.js";
+import ModalWithImage from "../scripts/ModalWithImage.js";
+import ModalWithForm from "../scripts/ModalWithForm.js";
+import Card from "../scripts/Card.js";
+import FormValidator from "../scripts/FormValidator.js";
+import "./index.css";
 
 const initialCards = [
   {
@@ -156,8 +156,10 @@ profileEditButton.addEventListener("click", () => {
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
-  userInfo.textContent = nameInput.value;
-  userInfo.textContent = jobInput.value;
+  userInfo.setUserInfo({
+    name: nameInput.value,
+    job: jobInput.value,
+  });
   editFormModal.close();
 }
 
