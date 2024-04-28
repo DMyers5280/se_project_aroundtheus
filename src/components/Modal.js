@@ -2,7 +2,6 @@ class Modal {
   constructor({ modalSelector }) {
     this._modalElement = document.querySelector(modalSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
-    this.setEventListeners();
   }
 
   open() {

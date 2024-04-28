@@ -1,10 +1,10 @@
-import Section from "../scripts/Section.js";
-import UserInfo from "../scripts/UserInfo.js";
-import Modal from "../scripts/Modal.js";
-import ModalWithImage from "../scripts/ModalWithImage.js";
-import ModalWithForm from "../scripts/ModalWithForm.js";
-import Card from "../scripts/Card.js";
-import FormValidator from "../scripts/FormValidator.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import Modal from "../components/Modal.js";
+import ModalWithImage from "../components/ModalWithImage.js";
+import ModalWithForm from "../components/ModalWithForm.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 import "./index.css";
 
 const initialCards = [
@@ -55,26 +55,12 @@ const cardImageModal = document.querySelector("#card-image-modal");
 const cardImageModalClose = cardImageModal.querySelector(".modal__close");
 const cardImage = cardImageModal.querySelector(".card__modal_image");
 
-// Functions
-
-// Event Listeners and Actions
-
-// profileEditButton.addEventListener("click", () => {
-//   nameInput.value = profileTitle.textContent;
-//   jobInput.value = profileSubtitle.textContent;
-//   open(profileEditModal);
-// });
-
-// addNewCardButton.addEventListener("click", () => {
-//   open(addCardModal);
-// });
 const section = new Section(
   { items: initialCards, renderer: renderCard },
   ".cards__list"
 );
 
 section.renderItems();
-// initialCards.forEach((cardData) => section(cardData));
 
 // Validation
 
@@ -101,23 +87,13 @@ function renderCard(cardData) {
   section.addItem(card.getView());
 }
 
-// Modal
-
-const modal = new Modal({ modalSelector: ".modal" });
-
 // Modal Image Popup
 
-function handleImageClick(data) {
-  const modalWithImage = new ModalWithImage("#card-image-modal");
-  modalWithImage.setEventListeners();
-  return modalWithImage.open(data);
-}
+const modalWithImage = new ModalWithImage("#card-image-modal");
 
-cardImageModal.addEventListener("click", function (e) {
-  if (e.target.classList.contains("modal")) {
-    close();
-  }
-});
+function handleImageClick(data) {
+  modalWithImage.open(data);
+}
 
 // Modal Form Popup
 
@@ -130,17 +106,17 @@ addNewCardButton.addEventListener("click", () => {
   newCardModal.open();
 });
 
-function handleAddCardFormSubmit(e) {
-  e.preventDefault();
+// Dear code reviewer, could you please show me how to transfer this and the other
+// submit function to the ModalWithForm.js class? I looked up several ways and tried them
+// but none of them seem to work.
+
+function handleAddCardFormSubmit(data) {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  e.target.reset();
+  data.target.reset();
   renderCard({ name, link }, cardListEl);
   newCardModal.close();
 }
-
-addCardForm.addEventListener("submit", handleAddCardFormSubmit);
-
 newCardModal.setEventListeners();
 
 // --------------------------------------
@@ -154,16 +130,13 @@ profileEditButton.addEventListener("click", () => {
   editFormModal.open();
 });
 
-function handleProfileEditSubmit(e) {
-  e.preventDefault();
+function handleProfileEditSubmit(data) {
   userInfo.setUserInfo({
     name: nameInput.value,
     job: jobInput.value,
   });
   editFormModal.close();
 }
-
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 editFormModal.setEventListeners();
 
