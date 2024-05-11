@@ -83,10 +83,6 @@
   outline: none;
 }
 
-.modal__input:invalid {
-  border-bottom: 1px solid #ff0000;
-}
-
 .modal__button {
   color: #fff;
   background-color: #000;

@@ -13,25 +13,7 @@ class ModalWithForm extends Modal {
     super.close();
   }
 
-  _handleFormSubmit(data) {
-    data.preventDefault();
-  }
 
-  // handleAddCardFormSubmit(data) {
-  //   const name = cardTitleInput.value;
-  //   const link = cardUrlInput.value;
-  //   data.target.reset();
-  //   renderCard({ name, link }, cardListEl);
-  //   this.close();
-  // }
-
-  // handleProfileEditSubmit() {
-  //   userInfo.setUserInfo({
-  //     name: nameInput.value,
-  //     job: jobInput.value,
-  //   });
-  //   this.close();
-  // }
 
   setEventListeners() {
     this._modalForm.addEventListener("submit", this._handleFormSubmit);

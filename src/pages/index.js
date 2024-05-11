@@ -106,10 +106,6 @@ addNewCardButton.addEventListener("click", () => {
   newCardModal.open();
 });
 
-// Dear code reviewer, could you please show me how to transfer this and the other
-// submit function to the ModalWithForm.js class? I looked up several ways and tried them
-// but none of them seem to work.
-
 function handleAddCardFormSubmit(data) {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
