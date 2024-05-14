@@ -109,7 +109,6 @@ addNewCardButton.addEventListener("click", () => {
 function handleAddCardFormSubmit(data) {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  data.target.reset();
   renderCard({ name, link }, cardListEl);
   newCardModal.close();
 }

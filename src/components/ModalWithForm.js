@@ -13,10 +13,20 @@ class ModalWithForm extends Modal {
     super.close();
   }
 
-
+  _getInputValues() {
+    inputList = [...this.popup.querySelectorAll('input')];
+    inputValues = {};
+    for (const input of inputList) {
+      inputValues[input.name] = input.value;
+    };
+    return inputValues;
+  }
 
   setEventListeners() {
-    this._modalForm.addEventListener("submit", this._handleFormSubmit);
+    this._modalForm.addEventListener("submit", () => {
+      this._handleFormSubmit(this._getInputValues);
+      this.close();
+    });
     super.setEventListeners();
   }
 }
