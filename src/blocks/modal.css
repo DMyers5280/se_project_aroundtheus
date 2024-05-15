@@ -97,12 +97,23 @@
   cursor: pointer;
 }
 
+.modal__button:hover {
+  opacity: 60%;
+  cursor: pointer;
+}
+
 .modal__button_disabled {
   background-color: #fff;
   color: #000;
   border-radius: 2px;
   border-color: #000;
   opacity: 0.2;
+  cursor: default;
+}
+
+.modal__button_disabled:hover {
+  opacity: 0.2;
+  cursor: default;
 }
 
 .modal__error {

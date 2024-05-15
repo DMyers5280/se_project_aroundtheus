@@ -107,8 +107,8 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 function handleAddCardFormSubmit(data) {
-  const name = cardTitleInput.value;
-  const link = cardUrlInput.value;
+  const name = data.title;
+  const link = data.url;
   renderCard({ name, link }, cardListEl);
   newCardModal.close();
 }
@@ -127,8 +127,8 @@ profileEditButton.addEventListener("click", () => {
 
 function handleProfileEditSubmit(data) {
   userInfo.setUserInfo({
-    name: nameInput.value,
-    job: jobInput.value,
+    name: data.title,
+    job: data.subtitle,
   });
   editFormModal.close();
 }

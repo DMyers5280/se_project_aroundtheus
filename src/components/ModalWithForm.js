@@ -14,8 +14,8 @@ class ModalWithForm extends Modal {
   }
 
   _getInputValues() {
-    inputList = [...this.popup.querySelectorAll('input')];
-    inputValues = {};
+    const inputList = [...this._modalForm.querySelectorAll('input')];
+    const inputValues = {};
     for (const input of inputList) {
       inputValues[input.name] = input.value;
     };
@@ -23,8 +23,9 @@ class ModalWithForm extends Modal {
   }
 
   setEventListeners() {
-    this._modalForm.addEventListener("submit", () => {
-      this._handleFormSubmit(this._getInputValues);
+    this._modalForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
       this.close();
     });
     super.setEventListeners();
