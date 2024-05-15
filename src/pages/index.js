@@ -93,8 +93,9 @@ const modalWithImage = new ModalWithImage("#card-image-modal");
 
 function handleImageClick(data) {
   modalWithImage.open(data);
-  modalWithImage.setEventListeners();
 }
+
+modalWithImage.setEventListeners();
 
 // Modal Form Popup
 
@@ -122,9 +123,12 @@ const editFormModal = new ModalWithForm(
   handleProfileEditSubmit
 );
 
+
+
 profileEditButton.addEventListener("click", () => {
-  profileEditForm.querySelector(".modal__input_type_title").value = userInfo.getUserInfo().name;
-  profileEditForm.querySelector(".modal__input_type_description").value = userInfo.getUserInfo().job;
+  const { name, job } = userInfo.getUserInfo();
+  profileEditForm.querySelector(".modal__input_type_title").value = name;
+  profileEditForm.querySelector(".modal__input_type_description").value = job;
   editFormValidator.toggleButtonState();
   editFormModal.open();
 });
