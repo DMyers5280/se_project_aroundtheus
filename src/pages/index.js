@@ -40,20 +40,11 @@ const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = addCardModal.querySelector("#add-card-form");
-// const profileTitle = document.querySelector(".profile__title");
-// const profileSubtitle = document.querySelector(".profile__subtitle");
-// const nameInput = profileEditModal.querySelector(".modal__input_type_title");
-// const jobInput = profileEditModal.querySelector(
-//   ".modal__input_type_description"
-// );
+
 const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
 const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
-// const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
-// const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
-// const cardImageModal = document.querySelector("#card-image-modal");
-// const cardImageModalClose = cardImageModal.querySelector(".modal__close");
-// const cardImage = cardImageModal.querySelector(".card__modal_image");
+
 
 const section = new Section(
   { items: initialCards, renderer: renderCard },
