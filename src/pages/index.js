@@ -6,6 +6,7 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import "./index.css";
+import Api from "../../Api.js";
 
 const initialCards = [
   {
@@ -146,7 +147,15 @@ const userInfo = new UserInfo({
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    authorization: "6b54c1bd-a8ee-4fc9-a89b-051d7f33f592",
     "Content-Type": "application/json"
   }
 });
+
+api.getInitialCards()
+   .then((result) => {
+     console.log(JSON.stringify(result));
+   })
+   .catch((err) => {
+     console.error(err); 
+   });
