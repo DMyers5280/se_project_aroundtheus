@@ -140,3 +140,13 @@ const userInfo = new UserInfo({
 });
 
 // userInfo.setUserInfo({ name: "Steve Jobs", job: "Business Man" });
+
+// API Request 
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    "Content-Type": "application/json"
+  }
+});
