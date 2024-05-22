@@ -53,8 +53,6 @@ const section = new Section(
   ".cards__list"
 );
 
-// section.addItem();
-
 // Validation
 
 const validationOptions = {
@@ -162,3 +160,12 @@ api.getInitialCards()
    .catch((err) => {
      console.error(err); 
    });
+
+   api.userInfoReq()
+   .then((result) => {
+    console.log(result).log(result);
+      userInfo.setUserInfo(result);
+    })
+   .catch((err) => {
+      console.error(err);
+    });
