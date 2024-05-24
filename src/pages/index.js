@@ -163,9 +163,16 @@ api.getInitialCards()
 
    api.userInfoReq()
    .then((result) => {
-    console.log(result).log(result);
-      userInfo.setUserInfo(result);
-    })
-   .catch((err) => {
-      console.error(err);
-    });
+    console.log(result);
+    document.querySelector(".profile__title").textContent = result.name;
+    document.querySelector(".profile__subtitle").textContent = result.job;
+    // setUserInfo(result);
+ })
+ .catch((err) => {
+    console.error(err);
+ });
+
+    // api.uploadProfileReq()
+    // .then((result) => {
+
+    // })

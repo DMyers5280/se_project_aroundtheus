@@ -23,13 +23,13 @@
             class="profile__image"
           />
           <div class="profile__info">
-            <h1 class="profile__title">Dale Myers</h1>
+            <h1 class="profile__title"></h1>
             <button
               type="button"
               class="profile__edit-button"
               id="profile-edit-button"
             ></button>
-            <p class="profile__subtitle">Gamer & Programmer</p>
+            <p class="profile__subtitle"></p>
           </div>
           <button type="button" class="profile__add-button"></button>
         </section>
@@ -134,5 +134,17 @@
         </div>
       </li>
     </template>
+
+    <!-- Delete Confirmation -->
+
+    <div class="modal modal_opened" id="delete-confirmation-modal">
+      <div class="modal__delete-container">
+        <button class="modal__close" id="delete-modal-close"></button>
+        <p class="modal__heading-delete modal__heading">Are you sure?</p>
+          <button class="modal__button-response modal__button-confirm" type="submit">Yes</button>
+          <button class="modal__button-response modal__button-deny" type="submit" >No</button>
+      </div>
+    </div>
+
   </body>
 </html>
