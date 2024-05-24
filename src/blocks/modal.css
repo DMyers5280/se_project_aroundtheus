@@ -72,6 +72,8 @@
 
 .modal__heading-delete {
   margin: 36px 34px 38px;
+  display: flex;
+  justify-content: center;
 }
 
 .modal__input {
@@ -92,7 +94,6 @@
   width: 430px;
   height: 181px;
   background-color: #fff;
-  padding: 36px 0;
   margin: auto;
   border-radius: 10px;
   position: relative;
@@ -131,8 +132,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 10px;
-  height: 30px;
+  margin: 0 auto 4px;
+  height: 23px;
+}
+
+.modal__button-response:nth-last-child(1) {
+  margin-bottom: 36px;
 }
 
 .modal__button {
