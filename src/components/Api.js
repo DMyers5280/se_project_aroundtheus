@@ -5,61 +5,48 @@ class Api {
         this._initialCards = initialCards;
     }
   
+    handleServerResponse(response){
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(`Error: ${response.status}`);
+    }
+
     getInitialCards() {
       return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
         headers: {
             authorization: "6b54c1bd-a8ee-4fc9-a89b-051d7f33f592"
         }
       })
-      .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then(data => {
-        return data;
-      });
+      .then(this.handleServerResponse);
     }
+
     userInfoReq() {
-      return fetch("https://around-api.en.tripleten-services.com/v1/users", {
+      return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
         method: "GET",
         headers: {
-          authorization: "6b54c1bd-a8ee-4fc9-a89b-051d7f33f592"
+          authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13"
         }
         
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then(data => {
-        return data;
-      });
+      .then(this.handleServerResponse);
   }
 
-  // uploadProfileReq() {
-  //   return fetch("https://around-api.en.tripleten-services.com/v1/users/me/avatar", {
-  //     method: "PATCH",
-  //     headers: {
-  //       authorization: "6b54c1bd-a8ee-4fc9-a89b-051d7f33f592",
-  //     }
-  //     // body: JSON.stringify({
-  //     //   url: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/users/avatar.jpg"
-  //     // })
-  //   })
-  //   .then(res => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-  //     return Promise.reject(`Error: ${res.status}`);
-  //   })
-  //   .then(data => {
-  //     return data;
-  //   });
-  // }
+  uploadProfileReq() {
+    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+      method: "PATCH",
+      headers: {
+        authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: "Marie Skłodowska Curie",
+        about: "Physicist and Chemist",
+        // url: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/users/avatar.jpg"
+      })
+    })
+    .then(this.handleServerResponse);
+  }
 }
   export default Api;
   

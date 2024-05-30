@@ -1,3 +1,4 @@
+import CardDeleteModal from "../components/CardDeleteModal.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Modal from "../components/Modal.js";
@@ -9,47 +10,19 @@ import "./index.css";
 import Api from "../components/Api.js";
 import { _ } from "core-js/";
 
-const initialCards = [
-  // {
-  //   name: "Yosemite Valley",
-  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  // },
-  // {
-  //   name: "Lake Louise",
-  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  // },
-  // {
-  //   name: "Bald Mountains",
-  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  // },
-  // {
-  //   name: "Latemar",
-  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  // },
-  // {
-  //   name: "Vanoise National Park",
-  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  // },
-  // {
-  //   name: "Lago di Braise",
-  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  // },
-];
-
 // Buttons and Other Dom Nodes
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = addCardModal.querySelector("#add-card-form");
-
 const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
 const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
 
 
 const section = new Section(
-  { items: initialCards, renderer: renderCard },
+  { renderer: renderCard },
   ".cards__list"
 );
 
@@ -107,6 +80,16 @@ function handleAddCardFormSubmit(data) {
 }
 newCardModal.setEventListeners();
 
+// Card Delete Modal Popup
+
+const cardDeleteModal = new CardDeleteModal("#card-delete-modal");
+
+function handleCardDeleteClick(card) {
+  cardDeleteModal.open(card);
+}
+
+
+
 // --------------------------------------
 
 const editFormModal = new ModalWithForm(
@@ -139,23 +122,19 @@ const userInfo = new UserInfo({
   jobSelector: ".profile__subtitle",
 });
 
-// userInfo.setUserInfo({ name: "Steve Jobs", job: "Business Man" });
-
 // API Request 
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "6b54c1bd-a8ee-4fc9-a89b-051d7f33f592",
+    authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
     "Content-Type": "application/json"
   }
 });
 
 api.getInitialCards()
    .then((result) => {
-    result.forEach(element => {
-      renderCard(element);
-    });
+    section.renderItems(result);
    })
    .catch((err) => {
      console.error(err); 
@@ -163,16 +142,13 @@ api.getInitialCards()
 
    api.userInfoReq()
    .then((result) => {
-    console.log(result);
-    document.querySelector(".profile__title").textContent = result.name;
-    document.querySelector(".profile__subtitle").textContent = result.job;
-    // setUserInfo(result);
+    userInfo.setUserInfo(result);
  })
  .catch((err) => {
     console.error(err);
  });
 
-    // api.uploadProfileReq()
-    // .then((result) => {
+    api.uploadProfileReq()
+    .then((result) => {
 
-    // })
+    })
