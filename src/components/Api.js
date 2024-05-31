@@ -40,12 +40,25 @@ class Api {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        about: "Physicist and Chemist",
-        // url: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/users/avatar.jpg"
+        name: "Max",
+        about: "Tutor"
       })
     })
     .then(this.handleServerResponse);
+  }
+
+  newCardReq() {
+    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+      method: "POST",
+      headers: {
+        authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: "New Card",
+        link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/users/avatar.jpg"
+      })
+    })
   }
 }
   export default Api;

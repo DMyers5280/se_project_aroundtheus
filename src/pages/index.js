@@ -100,26 +100,26 @@ const editFormModal = new ModalWithForm(
 
 
 profileEditButton.addEventListener("click", () => {
-  const { name, job } = userInfo.getUserInfo();
+  const { name, about } = userInfo.getUserInfo();
   profileEditForm.querySelector(".modal__input_type_title").value = name;
-  profileEditForm.querySelector(".modal__input_type_description").value = job;
+  profileEditForm.querySelector(".modal__input_type_description").value = about;
   editFormValidator.toggleButtonState();
   editFormModal.open();
 });
 
 function handleProfileEditSubmit(data) {
-  userInfo.setUserInfo({
-    name: data.title,
-    job: data.subtitle,
-  });
-  editFormModal.close();
+  api.uploadProfileReq()
+    .then((result) => {
+      userInfo.setUserInfo(result);
+      editFormModal.close();
+    })
 }
 
 editFormModal.setEventListeners();
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
-  jobSelector: ".profile__subtitle",
+  aboutSelector: ".profile__subtitle",
 });
 
 // API Request 
@@ -147,8 +147,3 @@ api.getInitialCards()
  .catch((err) => {
     console.error(err);
  });
-
-    api.uploadProfileReq()
-    .then((result) => {
-
-    })
