@@ -56,7 +56,7 @@ class Api {
       },
       body: JSON.stringify({
         name: "New Card",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/users/avatar.jpg"
+        link: "https://backiee.com/static/wpdb/wallpapers/1920x1080/208227.jpg"
       })
     })
   }
