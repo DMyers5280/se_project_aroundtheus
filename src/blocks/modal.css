@@ -115,29 +115,12 @@
   background-color: #000;
 }
 
-.modal__button-deny {
-  width: 358px;
-  border-radius: 2px;
-  margin: 48px 36px 36px 36.51px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21.78px;
-  font-family: "Inter", Arial, sans-serif;
-  cursor: pointer;
-  color: #fff;
-  background-color: #000;
-}
-
 .modal__button-response {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto 4px;
   height: 23px;
-}
-
-.modal__button-response:nth-last-child(1) {
-  margin-bottom: 36px;
 }
 
 .modal__button {

@@ -148,7 +148,6 @@ api.getInitialCards()
     console.error(err);
  });
 
- api.newCardReq({ name, link})
+ api.newCardReq(result)
  .then((result) => {
-  
  })
