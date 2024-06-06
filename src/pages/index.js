@@ -73,10 +73,17 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 function handleAddCardFormSubmit(data) {
-  const name = data.title;
-  const link = data.url;
-  renderCard({ name, link }, cardListEl);
-  newCardModal.close();
+  const name = data.name;
+  const link = data.link;
+  api.newCardReq(name, link)
+  .then((result) => {
+   const { name, link } = result;
+   renderCard({ name, link }, cardListEl);
+   newCardModal.close();
+  })
+   .catch(err => {
+     console.error(err);
+   });
 }
 newCardModal.setEventListeners();
 
@@ -147,3 +154,13 @@ api.getInitialCards()
  .catch((err) => {
     console.error(err);
  });
+
+//  api.newCardReq(name, link)
+//  .then((result) => {
+//   const { name, link } = response;
+//   renderCard({ name, link }, cardListEl);
+//   newCardModal.close();
+//  })
+//   .catch(error => {
+//     console.error(err);
+//   });

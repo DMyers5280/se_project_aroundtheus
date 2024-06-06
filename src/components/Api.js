@@ -15,7 +15,7 @@ class Api {
     getInitialCards() {
       return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
         headers: {
-            authorization: "6b54c1bd-a8ee-4fc9-a89b-051d7f33f592"
+            authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13"
         }
       })
       .then(this.handleServerResponse);
@@ -47,7 +47,7 @@ class Api {
     .then(this.handleServerResponse);
   }
 
-  newCardReq() {
+  newCardReq(name, link) {
     return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
       method: "POST",
       headers: {
@@ -55,10 +55,11 @@ class Api {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: "New Card",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/users/avatar.jpg"
+        name,
+        link
       })
     })
+    .then(this.handleServerResponse);
   }
 }
   export default Api;
