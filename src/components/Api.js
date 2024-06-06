@@ -56,6 +56,7 @@ class Api {
       },
       body: JSON.stringify({
         name: "New Card",
+        about: "New Description",
         link: "https://backiee.com/static/wpdb/wallpapers/1920x1080/208227.jpg"
       })
     })
