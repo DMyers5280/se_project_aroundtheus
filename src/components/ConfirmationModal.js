@@ -1,22 +1,21 @@
 import Modal from './Modal';
 
-class CardDeleteModal extends Modal { 
-    constructor(modalSelector, handleDelete) {
+class ConfirmationModal extends Modal { 
+    constructor(modalSelector) {
         super({ modalSelector });
-        this._handleDelete = handleDelete;
     }
 
     open(id) {
         super.open();
         this._handleDelete(id);
     }
-    confirmDelete(action) {
-        this._handleDeleteConfirm = action;
+    setSubmitAction(action) {
+        this._handleConfirmation = action;
     }
     setEventListeners() {
         this._modalElement.addEventListener("submit", (evt) => {
             evt.preventDefault();
-            this._handleDeleteConfirm();
+            this._handleConfirmation();
         });
 
         super.setEventListeners();
@@ -37,4 +36,4 @@ open() method with the modalWithConfirmation and provide the id inside.
 */
 
 
-export default CardDeleteModal;
+export default ConfirmationModal;

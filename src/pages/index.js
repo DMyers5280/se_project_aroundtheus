@@ -1,4 +1,4 @@
-import CardDeleteModal from "../components/CardDeleteModal.js";
+import ConfirmationModal from "../components/ConfirmationModal.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Modal from "../components/Modal.js";
@@ -51,6 +51,25 @@ function renderCard(cardData) {
   section.addItem(card.getView());
 }
 
+function handleDeleteClick(card) {
+  console.log(card.id);
+
+  // open the delete modal
+
+  confirmationModal.setSubmitAction(() => {
+    // wait for user to confirm delete
+    // call api to delete card and pass the card.id
+
+  })
+
+
+}
+
+const confirmationModal = new ConfirmationModal("#delete-confirmation-modal");
+confirmationModal.setEventListeners();
+
+
+//function handleImageClick(cardData) {}
 // Modal Image Popup
 
 const modalWithImage = new ModalWithImage("#card-image-modal");
@@ -89,10 +108,10 @@ newCardModal.setEventListeners();
 
 // Card Delete Modal Popup
 
-const cardDeleteModal = new CardDeleteModal("#card-delete-modal");
+
 
 function handleCardDeleteClick(card) {
-  cardDeleteModal.open(card);
+  confirmationModal.open(card);
 }
 
 
@@ -154,13 +173,3 @@ api.getInitialCards()
  .catch((err) => {
     console.error(err);
  });
-
-//  api.newCardReq(name, link)
-//  .then((result) => {
-//   const { name, link } = response;
-//   renderCard({ name, link }, cardListEl);
-//   newCardModal.close();
-//  })
-//   .catch(error => {
-//     console.error(err);
-//   });
