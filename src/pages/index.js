@@ -166,3 +166,5 @@ api
   .catch((err) => {
     console.error(err);
   });
+
+api.newCardReq(result).then((result) => {});
