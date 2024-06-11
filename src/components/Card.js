@@ -22,7 +22,7 @@ class Card {
     this._likeButton.classList.toggle("card__like-button_active");
   }
 
-  _handleDeleteCard() {
+  remove() {
     this._element.remove();
     this._element = null;
   }

@@ -20,11 +20,7 @@ const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
 const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
 
-
-const section = new Section(
-  { renderer: renderCard },
-  ".cards__list"
-);
+const section = new Section({ renderer: renderCard }, ".cards__list");
 
 // Validation
 
@@ -45,29 +41,30 @@ addCardFormValidator.enableValidation();
 // Card
 
 function renderCard(cardData) {
-  const card = new Card(cardData, "#card-template", () =>
-    handleImageClick(cardData)
+  const card = new Card(
+    cardData,
+    "#card-template",
+    () => handleImageClick(cardData),
+    () => {
+      handleDeleteClick(card);
+    }
   );
   section.addItem(card.getView());
 }
 
 function handleDeleteClick(card) {
-  console.log(card.id);
-
-  // open the delete modal
-
+  confirmationModal.open();
   confirmationModal.setSubmitAction(() => {
+    api.deleteCardReq(card.id).then(() => {
+      card.remove();
+    });
     // wait for user to confirm delete
     // call api to delete card and pass the card.id
-
-  })
-
-
+  });
 }
 
 const confirmationModal = new ConfirmationModal("#delete-confirmation-modal");
 confirmationModal.setEventListeners();
-
 
 //function handleImageClick(cardData) {}
 // Modal Image Popup
@@ -94,27 +91,24 @@ addNewCardButton.addEventListener("click", () => {
 function handleAddCardFormSubmit(data) {
   const name = data.name;
   const link = data.link;
-  api.newCardReq(name, link)
-  .then((result) => {
-   const { name, link } = result;
-   renderCard({ name, link }, cardListEl);
-   newCardModal.close();
-  })
-   .catch(err => {
-     console.error(err);
-   });
+  api
+    .newCardReq(name, link)
+    .then((result) => {
+      const { name, link } = result;
+      renderCard({ name, link }, cardListEl);
+      newCardModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 newCardModal.setEventListeners();
 
 // Card Delete Modal Popup
 
-
-
 function handleCardDeleteClick(card) {
   confirmationModal.open(card);
 }
-
-
 
 // --------------------------------------
 
@@ -122,8 +116,6 @@ const editFormModal = new ModalWithForm(
   "#profile-edit-modal",
   handleProfileEditSubmit
 );
-
-
 
 profileEditButton.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
@@ -134,11 +126,10 @@ profileEditButton.addEventListener("click", () => {
 });
 
 function handleProfileEditSubmit(data) {
-  api.uploadProfileReq()
-    .then((result) => {
-      userInfo.setUserInfo(result);
-      editFormModal.close();
-    })
+  api.uploadProfileReq().then((result) => {
+    userInfo.setUserInfo(result);
+    editFormModal.close();
+  });
 }
 
 editFormModal.setEventListeners();
@@ -148,28 +139,30 @@ const userInfo = new UserInfo({
   aboutSelector: ".profile__subtitle",
 });
 
-// API Request 
+// API Request
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
 
-api.getInitialCards()
-   .then((result) => {
+api
+  .getInitialCards()
+  .then((result) => {
     section.renderItems(result);
-   })
-   .catch((err) => {
-     console.error(err); 
-   });
-
-   api.userInfoReq()
-   .then((result) => {
-    userInfo.setUserInfo(result);
- })
- .catch((err) => {
+  })
+  .catch((err) => {
     console.error(err);
- });
+  });
+
+api
+  .userInfoReq()
+  .then((result) => {
+    userInfo.setUserInfo(result);
+  })
+  .catch((err) => {
+    console.error(err);
+  });

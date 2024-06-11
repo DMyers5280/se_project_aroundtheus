@@ -10,7 +10,8 @@ class Modal {
   }
 
   close() {
-    this._modalElement.classList.remove("modal_opened");``
+    this._modalElement.classList.remove("modal_opened");
+    ``;
     document.removeEventListener("keydown", this._handleEscClose);
   }
 

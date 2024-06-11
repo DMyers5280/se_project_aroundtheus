@@ -1,26 +1,38 @@
-import Modal from './Modal';
+import Modal from "./Modal";
 
-class ConfirmationModal extends Modal { 
-    constructor(modalSelector) {
-        super({ modalSelector });
-    }
+class ConfirmationModal extends Modal {
+  constructor(modalSelector) {
+    super({ modalSelector });
+    this._deleteConfirmation =
+      this._modalElement.querySelector("#delete-card-form");
+  }
 
-    open(id) {
-        super.open();
-        this._handleDelete(id);
-    }
-    setSubmitAction(action) {
-        this._handleConfirmation = action;
-    }
-    setEventListeners() {
-        this._modalElement.addEventListener("submit", (evt) => {
-            evt.preventDefault();
-            this._handleConfirmation();
-        });
+  open(id) {
+    super.open();
+  }
 
-        super.setEventListeners();
-    }
-    
+  close() {
+    super.close();
+  }
+
+  setSubmitAction(action) {
+    this._handleConfirmation = action;
+  }
+
+  setEventListeners() {
+    this._modalElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleConfirmation();
+      this.close();
+    });
+
+    super.setEventListeners();
+  }
+
+  //   _handleDelete() {
+  //     this._modalElement.remove();
+  //     this._element = null;
+  //   }
 }
 /*
 1. provide handleDelete function inside card which should
@@ -34,6 +46,5 @@ open() method with the modalWithConfirmation and provide the id inside.
 
 4. inside the modalWithConfirmation we need to provide the handleDeleteConfirm.
 */
-
 
 export default ConfirmationModal;

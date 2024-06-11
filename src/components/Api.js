@@ -1,35 +1,32 @@
 import { data } from "autoprefixer";
 
 class Api {
-    constructor(initialCards) {
-        this._initialCards = initialCards;
-    }
-  
-    handleServerResponse(response){
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Error: ${response.status}`);
-    }
+  constructor(initialCards) {
+    this._initialCards = initialCards;
+  }
 
-    getInitialCards() {
-      return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
-        headers: {
-            authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13"
-        }
-      })
-      .then(this.handleServerResponse);
+  handleServerResponse(response) {
+    if (response.ok) {
+      return response.json();
     }
+    return Promise.reject(`Error: ${response.status}`);
+  }
 
-    userInfoReq() {
-      return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-        method: "GET",
-        headers: {
-          authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13"
-        }
-        
-      })
-      .then(this.handleServerResponse);
+  getInitialCards() {
+    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+      headers: {
+        authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+      },
+    }).then(this.handleServerResponse);
+  }
+
+  userInfoReq() {
+    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+      method: "GET",
+      headers: {
+        authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+      },
+    }).then(this.handleServerResponse);
   }
 
   uploadProfileReq() {
@@ -37,14 +34,13 @@ class Api {
       method: "PATCH",
       headers: {
         authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: "Max",
-        about: "Tutor"
-      })
-    })
-    .then(this.handleServerResponse);
+        about: "Tutor",
+      }),
+    }).then(this.handleServerResponse);
   }
 
   newCardReq(name, link) {
@@ -52,27 +48,26 @@ class Api {
       method: "POST",
       headers: {
         authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
-        link
-      })
-    })
-    .then(this.handleServerResponse);
+        link,
+      }),
+    }).then(this.handleServerResponse);
   }
 
   deleteCardReq(id) {
-    return fetch(`https://around-api.en.tripleten-services.com/v1/cards/${id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(this.handleServerResponse);
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/cards/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(this.handleServerResponse);
   }
 }
-  export default Api;
-  
-  
+export default Api;
