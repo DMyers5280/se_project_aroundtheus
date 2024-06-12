@@ -52,7 +52,6 @@ class Api {
       },
       body: JSON.stringify({
         name: "New Card",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/users/avatar.jpg",
       }),
     });
   }
@@ -60,6 +59,32 @@ class Api {
   deleteCardReq(id) {
     return fetch(
       `https://around-api.en.tripleten-services.com/v1/cards/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
+  addLikesReq() {
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/cards/${id}/likes`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
+  removeLikesReq() {
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/cards/${id}/likes`,
       {
         method: "DELETE",
         headers: {

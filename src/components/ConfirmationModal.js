@@ -3,8 +3,9 @@ import Modal from "./Modal";
 class ConfirmationModal extends Modal {
   constructor(modalSelector) {
     super({ modalSelector });
-    this._deleteConfirmation =
-      this._modalElement.querySelector("#delete-card-form");
+    this._deleteConfirmation = this._modalElement.querySelector(
+      "#delete-confirmation-modal"
+    );
   }
 
   open(id) {
