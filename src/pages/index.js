@@ -55,11 +55,9 @@ function renderCard(cardData) {
 function handleDeleteClick(card) {
   confirmationModal.open();
   confirmationModal.setSubmitAction(() => {
-    api.deleteCardReq(card.id).then(() => {
+    api.deleteCardReq(card._id).then(() => {
       card.remove();
     });
-    // wait for user to confirm delete
-    // call api to delete card and pass the card.id
   });
 }
 
@@ -166,7 +164,3 @@ api
   .catch((err) => {
     console.error(err);
   });
-
-// Cards delete even though the modal was closed.
-
-// Cards will not render anymore.
