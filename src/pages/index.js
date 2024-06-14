@@ -95,7 +95,7 @@ function handleAddCardFormSubmit(data) {
     .newCardReq(name, link)
     .then((result) => {
       const { name, link } = result;
-      renderCard({ name, link }, cardListEl);
+      renderCard({ name, link });
       newCardModal.close();
     })
     .catch((err) => {
@@ -167,4 +167,6 @@ api
     console.error(err);
   });
 
-api.newCardReq(result).then((result) => {});
+// Cards delete even though the modal was closed.
+
+// Cards will not render anymore.

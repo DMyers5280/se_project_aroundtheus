@@ -51,9 +51,10 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "New Card",
+        name,
+        link,
       }),
-    });
+    }).then(this.handleServerResponse);
   }
 
   deleteCardReq(id) {
@@ -66,7 +67,7 @@ class Api {
           "Content-Type": "application/json",
         },
       }
-    );
+    ).then(this.handleServerResponse);
   }
 
   addLikesReq() {
@@ -79,7 +80,7 @@ class Api {
           "Content-Type": "application/json",
         },
       }
-    );
+    ).then(this.handleServerResponse);
   }
 
   removeLikesReq() {
@@ -92,7 +93,7 @@ class Api {
           "Content-Type": "application/json",
         },
       }
-    );
+    ).then(this.handleServerResponse);
   }
 }
 export default Api;
