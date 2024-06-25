@@ -47,9 +47,30 @@ function renderCard(cardData) {
     () => handleImageClick(cardData),
     () => {
       handleDeleteClick(card);
+    },
+    () => {
+      toggleLike(card);
     }
   );
   section.addItem(card.getView());
+}
+
+function toggleLike(card) {
+  if (card.isLiked) {
+    api
+      .removeLikesReq(card.id)
+      .then(() => {
+        card.handleLikeIcon();
+      })
+      .catch((err) => console.error(err));
+  } else {
+    api
+      .addLikesReq(card.id)
+      .then(() => {
+        card.handleLikeIcon();
+      })
+      .catch((err) => console.error(err));
+  }
 }
 
 function handleDeleteClick(card) {
@@ -164,3 +185,5 @@ api
   .catch((err) => {
     console.error(err);
   });
+
+// card likes do not stay after page is refreshed

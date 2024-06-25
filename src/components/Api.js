@@ -70,7 +70,7 @@ class Api {
     ).then(this.handleServerResponse);
   }
 
-  addLikesReq() {
+  addLikesReq(id) {
     return fetch(
       `https://around-api.en.tripleten-services.com/v1/cards/${id}/likes`,
       {
@@ -83,7 +83,7 @@ class Api {
     ).then(this.handleServerResponse);
   }
 
-  removeLikesReq() {
+  removeLikesReq(id) {
     return fetch(
       `https://around-api.en.tripleten-services.com/v1/cards/${id}/likes`,
       {
