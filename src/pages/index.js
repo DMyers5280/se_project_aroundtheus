@@ -76,6 +76,7 @@ function toggleLike(card) {
 function handleDeleteClick(card) {
   confirmationModal.open();
   confirmationModal.setSubmitAction(() => {
+    console.log(card);
     api.deleteCardReq(card._id).then(() => {
       card.remove();
     });

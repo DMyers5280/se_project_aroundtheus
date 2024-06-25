@@ -57,7 +57,7 @@ class Api {
     }).then(this.handleServerResponse);
   }
 
-  deleteCardReq(id) {
+  deleteCardReq(_id) {
     return fetch(
       `https://around-api.en.tripleten-services.com/v1/cards/${_id}`,
       {

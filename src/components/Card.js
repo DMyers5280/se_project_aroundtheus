@@ -2,7 +2,8 @@ class Card {
   constructor(cardData, cardTemplate, handleImageClick, handleDeleteCard) {
     this._name = cardData.name;
     this._link = cardData.link;
-    this.id = cardData.id;
+    console.log(cardData);
+    this._id = cardData._id;
     this._cardTemplate = cardTemplate;
     this._handleImageClick = handleImageClick;
     this.isLiked = cardData.isLiked || false;
