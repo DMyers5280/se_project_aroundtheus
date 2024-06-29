@@ -44,13 +44,9 @@ function renderCard(cardData) {
   const card = new Card(
     cardData,
     "#card-template",
-    () => handleImageClick(cardData),
-    () => {
-      handleDeleteClick(card);
-    },
-    () => {
-      toggleLike(card);
-    }
+    handleImageClick,
+    handleDeleteClick,
+    toggleLike
   );
   section.addItem(card.getView());
 }
@@ -60,14 +56,14 @@ function toggleLike(card) {
     api
       .removeLikesReq(card.id)
       .then(() => {
-        card.handleLikeIcon();
+        card.handleLikeIcon(false);
       })
       .catch((err) => console.error(err));
   } else {
     api
       .addLikesReq(card.id)
       .then(() => {
-        card.handleLikeIcon();
+        card.handleLikeIcon(true);
       })
       .catch((err) => console.error(err));
   }
@@ -77,7 +73,7 @@ function handleDeleteClick(card) {
   confirmationModal.open();
   confirmationModal.setSubmitAction(() => {
     console.log(card);
-    api.deleteCardReq(card._id).then(() => {
+    api.deleteCardReq(card.id).then(() => {
       card.remove();
     });
   });

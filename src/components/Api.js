@@ -72,7 +72,7 @@ class Api {
 
   addLikesReq(id) {
     return fetch(
-      `https://around-api.en.tripleten-services.com/v1/cards/${_id}/likes`,
+      `https://around-api.en.tripleten-services.com/v1/cards/${id}/likes`,
       {
         method: "PUT",
         headers: {
@@ -85,7 +85,7 @@ class Api {
 
   removeLikesReq(id) {
     return fetch(
-      `https://around-api.en.tripleten-services.com/v1/cards/${_id}/likes`,
+      `https://around-api.en.tripleten-services.com/v1/cards/${id}/likes`,
       {
         method: "DELETE",
         headers: {
