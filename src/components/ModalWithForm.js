@@ -9,16 +9,16 @@ class ModalWithForm extends Modal {
   }
 
   close() {
-    this._modalForm.reset();
+    //this._modalForm.reset();
     super.close();
   }
 
   _getInputValues() {
-    const inputList = [...this._modalForm.querySelectorAll('input')];
+    const inputList = [...this._modalForm.querySelectorAll("input")];
     const inputValues = {};
     for (const input of inputList) {
       inputValues[input.name] = input.value;
-    };
+    }
     return inputValues;
   }
 

@@ -1,3 +1,4 @@
+import ConfirmationModal from "../components/ConfirmationModal.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Modal from "../components/Modal.js";
@@ -6,33 +7,8 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import "./index.css";
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+import Api from "../components/Api.js";
+import { _ } from "core-js/";
 
 // Buttons and Other Dom Nodes
 
@@ -40,27 +16,11 @@ const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = addCardModal.querySelector("#add-card-form");
-// const profileTitle = document.querySelector(".profile__title");
-// const profileSubtitle = document.querySelector(".profile__subtitle");
-// const nameInput = profileEditModal.querySelector(".modal__input_type_title");
-// const jobInput = profileEditModal.querySelector(
-//   ".modal__input_type_description"
-// );
 const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
 const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
-// const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
-// const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
-// const cardImageModal = document.querySelector("#card-image-modal");
-// const cardImageModalClose = cardImageModal.querySelector(".modal__close");
-// const cardImage = cardImageModal.querySelector(".card__modal_image");
 
-const section = new Section(
-  { items: initialCards, renderer: renderCard },
-  ".cards__list"
-);
-
-section.renderItems();
+const section = new Section({ renderer: renderCard }, ".cards__list");
 
 // Validation
 
@@ -81,12 +41,48 @@ addCardFormValidator.enableValidation();
 // Card
 
 function renderCard(cardData) {
-  const card = new Card(cardData, "#card-template", () =>
-    handleImageClick(cardData)
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleImageClick,
+    handleDeleteClick,
+    toggleLike
   );
   section.addItem(card.getView());
 }
 
+function toggleLike(card) {
+  if (card.isLiked) {
+    api
+      .removeLikesReq(card.id)
+      .then(() => {
+        card.handleLikeIcon(false);
+      })
+      .catch((err) => console.error(err));
+  } else {
+    api
+      .addLikesReq(card.id)
+      .then(() => {
+        card.handleLikeIcon(true);
+      })
+      .catch((err) => console.error(err));
+  }
+}
+
+function handleDeleteClick(card) {
+  confirmationModal.open();
+  confirmationModal.setSubmitAction(() => {
+    console.log(card);
+    api.deleteCardReq(card.id).then(() => {
+      card.remove();
+    });
+  });
+}
+
+const confirmationModal = new ConfirmationModal("#delete-confirmation-modal");
+confirmationModal.setEventListeners();
+
+//function handleImageClick(cardData) {}
 // Modal Image Popup
 
 const modalWithImage = new ModalWithImage("#card-image-modal");
@@ -109,12 +105,26 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 function handleAddCardFormSubmit(data) {
-  const name = data.title;
-  const link = data.url;
-  renderCard({ name, link }, cardListEl);
-  newCardModal.close();
+  const name = data.name;
+  const link = data.link;
+  api
+    .newCardReq(name, link)
+    .then((result) => {
+      const { name, link } = result;
+      renderCard({ name, link });
+      newCardModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 newCardModal.setEventListeners();
+
+// Card Delete Modal Popup
+
+function handleCardDeleteClick(card) {
+  confirmationModal.open(card);
+}
 
 // --------------------------------------
 
@@ -123,29 +133,54 @@ const editFormModal = new ModalWithForm(
   handleProfileEditSubmit
 );
 
-
-
 profileEditButton.addEventListener("click", () => {
-  const { name, job } = userInfo.getUserInfo();
+  const { name, about } = userInfo.getUserInfo();
   profileEditForm.querySelector(".modal__input_type_title").value = name;
-  profileEditForm.querySelector(".modal__input_type_description").value = job;
+  profileEditForm.querySelector(".modal__input_type_description").value = about;
   editFormValidator.toggleButtonState();
   editFormModal.open();
 });
 
 function handleProfileEditSubmit(data) {
-  userInfo.setUserInfo({
-    name: data.title,
-    job: data.subtitle,
+  api.uploadProfileReq().then((result) => {
+    userInfo.setUserInfo(result);
+    editFormModal.close();
   });
-  editFormModal.close();
 }
 
 editFormModal.setEventListeners();
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
-  jobSelector: ".profile__subtitle",
+  aboutSelector: ".profile__subtitle",
 });
 
-// userInfo.setUserInfo({ name: "Steve Jobs", job: "Business Man" });
+// API Request
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+    "Content-Type": "application/json",
+  },
+});
+
+api
+  .getInitialCards()
+  .then((result) => {
+    section.renderItems(result);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+api
+  .userInfoReq()
+  .then((result) => {
+    userInfo.setUserInfo(result);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+// card likes do not stay after page is refreshed
