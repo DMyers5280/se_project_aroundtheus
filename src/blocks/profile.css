@@ -13,6 +13,7 @@
   box-sizing: border-box;
   border-radius: 50%;
   margin-right: 30px;
+  z-index: 0;
 }
 
 .profile__title {
@@ -56,6 +57,7 @@
   height: 24px;
   width: 24px;
   border: #fff;
+  position: absolute;
 }
 
 .profile__edit-button:hover {
@@ -85,11 +87,13 @@
   border-radius: 50%;
   margin-right: 30px;
   opacity: 0;
+  position: absolute;
 }
 
 .profile__picture_button:hover {
   cursor: pointer;
   opacity: 60%;
+  z-index: 1;
 }
 
 @media screen and (max-width: 880px) {
