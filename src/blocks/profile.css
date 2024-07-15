@@ -80,7 +80,7 @@
   opacity: 60%;
 }
 
-.profile__picture_button {
+.profile__picture-button {
   width: 120px;
   height: 120px;
   box-sizing: border-box;
@@ -88,12 +88,22 @@
   margin-right: 30px;
   opacity: 0;
   position: absolute;
+  border: none;
 }
 
-.profile__picture_button:hover {
+.picture__edit-button {
+}
+
+.picture__edit-button:hover {
+  position: absolute;
+  z-index: 3;
+}
+
+.profile__picture-button:hover {
   cursor: pointer;
   opacity: 60%;
   z-index: 1;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 @media screen and (max-width: 880px) {
