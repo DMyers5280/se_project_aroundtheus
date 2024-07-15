@@ -95,15 +95,12 @@
 }
 
 .picture__edit-button:hover {
-  position: absolute;
-  z-index: 3;
 }
 
 .profile__picture-button:hover {
   cursor: pointer;
-  opacity: 60%;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 @media screen and (max-width: 880px) {
