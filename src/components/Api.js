@@ -37,8 +37,8 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Max",
-        about: "Tutor",
+        name: "Dale Myers",
+        about: "Gamer and Programmer",
       }),
     }).then(this.handleServerResponse);
   }
