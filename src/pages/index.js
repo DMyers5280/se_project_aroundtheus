@@ -133,10 +133,14 @@ const editFormModal = new ModalWithForm(
   handleProfileEditSubmit
 );
 
-// const editProfileModal = new ModalWithForm(
+// const profilePictureModal = new ModalWithForm(
 //   "#profile-picture-modal",
 //   handleProfileEditSubmit
 // );
+
+// profilePictureButton.addEventListener("click", () => {
+//   profilePictureModal.open();
+// });
 
 profileEditButton.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
