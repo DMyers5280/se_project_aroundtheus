@@ -19,6 +19,7 @@ const addCardForm = addCardModal.querySelector("#add-card-form");
 const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
 const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
+const profilePictureButton = document.querySelector(".profile__picture-button");
 
 const section = new Section({ renderer: renderCard }, ".cards__list");
 
@@ -82,7 +83,6 @@ function handleDeleteClick(card) {
 const confirmationModal = new ConfirmationModal("#delete-confirmation-modal");
 confirmationModal.setEventListeners();
 
-//function handleImageClick(cardData) {}
 // Modal Image Popup
 
 const modalWithImage = new ModalWithImage("#card-image-modal");
@@ -133,6 +133,11 @@ const editFormModal = new ModalWithForm(
   handleProfileEditSubmit
 );
 
+// const editProfileModal = new ModalWithForm(
+//   "#profile-picture-modal",
+//   handleProfileEditSubmit
+// );
+
 profileEditButton.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
   profileEditForm.querySelector(".modal__input_type_title").value = name;
@@ -142,7 +147,7 @@ profileEditButton.addEventListener("click", () => {
 });
 
 function handleProfileEditSubmit(data) {
-  api.uploadProfileReq().then((result) => {
+  api.uploadProfileReq(data).then((result) => {
     userInfo.setUserInfo(result);
     editFormModal.close();
   });

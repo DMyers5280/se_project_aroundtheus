@@ -29,7 +29,7 @@ class Api {
     }).then(this.handleServerResponse);
   }
 
-  uploadProfileReq() {
+  uploadProfileReq({ title, subtitle }) {
     return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
       method: "PATCH",
       headers: {
@@ -37,8 +37,8 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Dale Myers",
-        about: "Gamer and Programmer",
+        name: title,
+        about: subtitle,
       }),
     }).then(this.handleServerResponse);
   }
