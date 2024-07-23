@@ -133,14 +133,14 @@ const editFormModal = new ModalWithForm(
   handleProfileEditSubmit
 );
 
-// const profilePictureModal = new ModalWithForm(
-//   "#profile-picture-modal",
-//   handleProfileEditSubmit
-// );
+const profilePictureModal = new ModalWithForm(
+  "#profile-picture-modal",
+  handleProfileEditSubmit
+);
 
-// profilePictureButton.addEventListener("click", () => {
-//   profilePictureModal.open();
-// });
+profilePictureButton.addEventListener("click", () => {
+  profilePictureModal.open();
+});
 
 profileEditButton.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
@@ -191,5 +191,3 @@ api
   .catch((err) => {
     console.error(err);
   });
-
-// card likes do not stay after page is refreshed
