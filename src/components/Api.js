@@ -95,5 +95,18 @@ class Api {
       }
     ).then(this.handleServerResponse);
   }
+
+  profilePictureReq(id) {
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/users/${id}/avatar`,
+      {
+        method: "PATCH",
+        headers: {
+          authorization: "07909f6e-76be-4aa7-8439-3e97a34a8c13",
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(this.handleServerResponse);
+  }
 }
 export default Api;

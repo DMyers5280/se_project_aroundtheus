@@ -20,6 +20,7 @@ const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
 const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const profilePictureButton = document.querySelector(".profile__picture-button");
+const profilePictureForm = document.querySelector("#profile-picture-form");
 
 const section = new Section({ renderer: renderCard }, ".cards__list");
 
@@ -35,9 +36,14 @@ const validationOptions = {
 
 const editFormValidator = new FormValidator(validationOptions, profileEditForm);
 const addCardFormValidator = new FormValidator(validationOptions, addCardForm);
+const profilePictureValidator = new FormValidator(
+  validationOptions,
+  profilePictureForm
+);
 
 editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+profilePictureValidator.enableValidation();
 
 // Card
 
@@ -133,15 +139,6 @@ const editFormModal = new ModalWithForm(
   handleProfileEditSubmit
 );
 
-const profilePictureModal = new ModalWithForm(
-  "#profile-picture-modal",
-  handleProfileEditSubmit
-);
-
-profilePictureButton.addEventListener("click", () => {
-  profilePictureModal.open();
-});
-
 profileEditButton.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
   profileEditForm.querySelector(".modal__input_type_title").value = name;
@@ -163,6 +160,31 @@ const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   aboutSelector: ".profile__subtitle",
 });
+
+// Profile Picture Modal
+
+const profilePictureModal = new ModalWithForm(
+  "#profile-picture-modal",
+  handleProfilePictureSubmit
+);
+
+profilePictureButton.addEventListener("click", () => {
+  profilePictureModal.open();
+});
+
+function handleProfilePictureSubmit(data) {
+  const link = data.link;
+  api
+    .profilePictureReq(link)
+    .then((result) => {
+      const { link } = result;
+      // renderCard({ link });
+      profilePictureModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
 
 // API Request
 
