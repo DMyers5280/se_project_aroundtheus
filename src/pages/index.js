@@ -168,6 +168,8 @@ const profilePictureModal = new ModalWithForm(
   handleProfilePictureSubmit
 );
 
+profilePictureModal.setEventListeners();
+
 profilePictureButton.addEventListener("click", () => {
   profilePictureModal.open();
 });
@@ -177,7 +179,7 @@ function handleProfilePictureSubmit(data) {
   api
     .profilePictureReq(link)
     .then((result) => {
-      const { link } = result;
+      // const { link } = result;
       // renderCard({ link });
       profilePictureModal.close();
     })

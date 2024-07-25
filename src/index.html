@@ -18,15 +18,19 @@
       <main class="content">
         <section class="profile">
           <div class="profile__avatar-container">
-          <button class="profile__picture-button">
-            <img src="<%=require('./images/picture-edit.png')%>" alt="Edit Profile Picture" class="picture__edit-icon">
-          </button>
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="Avatar"
-            class="profile__image"
-          />
-        </div>
+            <button class="profile__picture-button">
+              <img
+                src="<%=require('./images/picture-edit.png')%>"
+                alt="Edit Profile Picture"
+                class="picture__edit-icon"
+              />
+            </button>
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="Avatar"
+              class="profile__image"
+            />
+          </div>
 
           <div class="profile__info">
             <h1 class="profile__title"></h1>
@@ -76,7 +80,13 @@
             required
           />
           <span class="modal__error" id="profile-description-error"></span>
-          <button class="modal__button modal__button_disabled" type="submit" disabled>Save</button>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -108,7 +118,13 @@
             required
           />
           <span class="modal__error" id="url-link-error"></span>
-          <button class="modal__button modal__button_disabled" type="submit" disabled>Save</button>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -118,9 +134,8 @@
     <div class="modal" id="card-image-modal">
       <div class="modal__container_image">
         <button class="modal__close" id="image-modal-close"></button>
-        <img src="" alt="" class="card__modal_image">
+        <img src="" alt="" class="card__modal_image" />
         <p class="card__image_modal_caption"></p>
-        </form>
       </div>
     </div>
 
@@ -136,7 +151,11 @@
         <img src="" alt="" class="card__image" />
         <div class="card__description">
           <h2 class="card__description-text"></h2>
-          <button type="button" class="card__like-button" id="card-like-button"></button>
+          <button
+            type="button"
+            class="card__like-button"
+            id="card-like-button"
+          ></button>
         </div>
       </li>
     </template>
@@ -145,10 +164,15 @@
 
     <div class="modal" id="delete-confirmation-modal">
       <div class="modal__delete-container">
-        <form class="modal__form" id="delete-card-form">
         <button class="modal__close" id="delete-modal-close"></button>
-        <p class="modal__heading-delete modal__heading">Are you sure?</p>
-          <button class="modal__button-response modal__button-confirm" type="submit">Yes</button>
+        <form class="modal__form" id="delete-card-form">
+          <p class="modal__heading-delete modal__heading">Are you sure?</p>
+          <button
+            class="modal__button-response modal__button-confirm"
+            type="submit"
+          >
+            Yes
+          </button>
         </form>
       </div>
     </div>
@@ -156,7 +180,7 @@
     <!-- Change Profile Picture -->
 
     <div class="modal" id="profile-picture-modal">
-      <div class="modal__container">
+      <div class="modal__profile-container">
         <button class="modal__close" id="profile-picture-close"></button>
         <p class="modal__heading">Change Profile Picture</p>
         <form class="modal__form" id="profile-picture-form">
@@ -169,15 +193,15 @@
             required
           />
           <span class="modal__error" id="url-link-error"></span>
-          <button class="modal__button modal__button_disabled" type="submit" disabled>Save</button>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
-
   </body>
 </html>
-
-
-
-
-
