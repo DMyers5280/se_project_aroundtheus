@@ -8,7 +8,6 @@ class Card {
   ) {
     this._name = cardData.name;
     this._link = cardData.link;
-    console.log(cardData);
     this.id = cardData._id;
     this._cardTemplate = cardTemplate;
     this._handleImageClick = handleImageClick;
