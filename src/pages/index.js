@@ -159,6 +159,7 @@ editFormModal.setEventListeners();
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   aboutSelector: ".profile__subtitle",
+  avatarSelector: ".profile__image",
 });
 
 // Profile Picture Modal
@@ -175,12 +176,16 @@ profilePictureButton.addEventListener("click", () => {
 });
 
 function handleProfilePictureSubmit(data) {
-  const link = data.link;
+  const avatar = data.avatar;
   api
-    .profilePictureReq(link)
+    .profilePictureReq(avatar)
     .then((result) => {
-      // const { link } = result;
+      const { avatar } = result;
       // renderCard({ link });
+
+      // set the src of the avatar image
+      // call userInfo.setAvatar
+      // pass the link as an argument
       profilePictureModal.close();
     })
     .catch((err) => {
@@ -210,6 +215,7 @@ api
 api
   .userInfoReq()
   .then((result) => {
+    userInfo.setAvatar(result);
     userInfo.setUserInfo(result);
   })
   .catch((err) => {
