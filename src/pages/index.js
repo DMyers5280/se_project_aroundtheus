@@ -21,7 +21,6 @@ const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const profilePictureButton = document.querySelector(".profile__picture-button");
 const profilePictureForm = document.querySelector("#profile-picture-form");
-
 const section = new Section({ renderer: renderCard }, ".cards__list");
 
 // Validation
@@ -117,8 +116,10 @@ function handleAddCardFormSubmit(data) {
     .newCardReq(name, link)
     .then((result) => {
       const { name, link } = result;
-      renderCard({ name, link });
+      renderCard(result);
+
       newCardModal.close();
+      newCardModal.reset();
     })
     .catch((err) => {
       console.error(err);
@@ -176,16 +177,11 @@ profilePictureButton.addEventListener("click", () => {
 });
 
 function handleProfilePictureSubmit(data) {
-  const avatar = data.avatar;
   api
-    .profilePictureReq(avatar)
+    .profilePictureReq(data.link)
     .then((result) => {
       const { avatar } = result;
-      // renderCard({ link });
-
-      // set the src of the avatar image
-      // call userInfo.setAvatar
-      // pass the link as an argument
+      userInfo.setAvatar(data.link);
       profilePictureModal.close();
     })
     .catch((err) => {

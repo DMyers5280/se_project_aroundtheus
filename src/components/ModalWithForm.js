@@ -12,6 +12,10 @@ class ModalWithForm extends Modal {
     super.close();
   }
 
+  _clearForm() {
+    this._modalForm.reset();
+  }
+
   _getInputValues() {
     const inputList = [...this._modalForm.querySelectorAll("input")];
     const inputValues = {};
@@ -25,6 +29,7 @@ class ModalWithForm extends Modal {
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
+      this._clearForm();
       this.close();
     });
     super.setEventListeners();
