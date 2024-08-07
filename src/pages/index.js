@@ -78,13 +78,11 @@ function toggleLike(card) {
 function handleDeleteClick(card) {
   confirmationModal.open();
   confirmationModal.setSubmitAction(() => {
-    console.log(card);
     api.deleteCardReq(card.id).then(() => {
       card.remove();
     });
   });
 }
-
 const confirmationModal = new ConfirmationModal("#delete-confirmation-modal");
 confirmationModal.setEventListeners();
 
@@ -119,7 +117,6 @@ function handleAddCardFormSubmit(data) {
       renderCard(result);
 
       newCardModal.close();
-      newCardModal.reset();
     })
     .catch((err) => {
       console.error(err);
@@ -177,16 +174,21 @@ profilePictureButton.addEventListener("click", () => {
 });
 
 function handleProfilePictureSubmit(data) {
-  api
-    .profilePictureReq(data.link)
-    .then((result) => {
-      const { avatar } = result;
-      userInfo.setAvatar(data.link);
-      profilePictureModal.close();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  const saveButton = document.getElementById("modal-save-button");
+  saveButton.textContent = "SAVING...";
+  setTimeout(() => {
+    api
+      .profilePictureReq(data.link)
+      .then((result) => {
+        saveButton.textContent = "SAVE";
+        userInfo.setAvatar(result);
+        profilePictureModal.close();
+      })
+      .catch((err) => {
+        console.error(err);
+        saveButton.textContent = "SAVE";
+      });
+  }, 0);
 }
 
 // API Request
