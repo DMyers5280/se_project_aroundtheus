@@ -27,12 +27,17 @@ class ModalWithForm extends Modal {
   }
 
   setEventListeners() {
-    this._modalForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
-      this._clearForm();
-      this.close();
-    });
+    this._modalForm
+      .addEventListener("submit", (e) => {
+        e.preventDefault();
+        this._handleFormSubmit(this._getInputValues());
+        this._clearForm();
+        this.close();
+      })
+      .then(() => {
+        this._clearForm();
+        this.close();
+      });
     super.setEventListeners();
   }
 }
