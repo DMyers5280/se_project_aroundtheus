@@ -78,9 +78,14 @@ function toggleLike(card) {
 function handleDeleteClick(card) {
   confirmationModal.open();
   confirmationModal.setSubmitAction(() => {
-    api.deleteCardReq(card.id).then(() => {
-      card.remove();
-    });
+    api
+      .deleteCardReq(card.id)
+      .then(() => {
+        card.remove();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 }
 const confirmationModal = new ConfirmationModal("#delete-confirmation-modal");
@@ -115,8 +120,8 @@ function handleAddCardFormSubmit(data) {
     .then((result) => {
       const { name, link } = result;
       renderCard(result);
-
       newCardModal.close();
+      addCardFormValidator.disableButton();
     })
     .catch((err) => {
       console.error(err);
@@ -146,10 +151,15 @@ profileEditButton.addEventListener("click", () => {
 });
 
 function handleProfileEditSubmit(data) {
-  api.uploadProfileReq(data).then((result) => {
-    userInfo.setUserInfo(result);
-    editFormModal.close();
-  });
+  api
+    .uploadProfileReq(data)
+    .then((result) => {
+      userInfo.setUserInfo(result);
+      editFormModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 editFormModal.setEventListeners();
@@ -176,19 +186,19 @@ profilePictureButton.addEventListener("click", () => {
 function handleProfilePictureSubmit(data) {
   const saveButton = document.getElementById("modal-save-button");
   saveButton.textContent = "SAVING...";
-  setTimeout(() => {
-    api
-      .profilePictureReq(data.link)
-      .then((result) => {
-        saveButton.textContent = "SAVE";
-        userInfo.setAvatar(result);
-        profilePictureModal.close();
-      })
-      .catch((err) => {
-        console.error(err);
-        saveButton.textContent = "SAVE";
-      });
-  }, 0);
+  // profilePictureModal.setButtonText(loading);
+  api
+    .profilePictureReq(data.link)
+    .then((result) => {
+      saveButton.textContent = "SAVE";
+      userInfo.setAvatar(result);
+      profilePictureModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+      saveButton.textContent = "SAVE";
+    })
+    .finally();
 }
 
 // API Request
