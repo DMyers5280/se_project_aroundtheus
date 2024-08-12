@@ -196,9 +196,14 @@ function handleProfilePictureSubmit(data) {
     })
     .catch((err) => {
       console.error(err);
-      saveButton.textContent = "SAVE";
     })
-    .finally();
+    .finally(() => {
+      if (err) {
+        saveButton.textContent = "SAVE FAILED";
+      } else {
+        saveButton.textContent = "SAVE SUCCEEDED";
+      }
+    });
 }
 
 // API Request
