@@ -6,7 +6,13 @@ class ModalWithForm extends Modal {
     this._modalForm = this._modalElement.querySelector(".modal__form");
     this._handleFormSubmit = handleFormSubmit.bind(this);
     this._modalInput = this._modalForm.querySelector(".modal__input");
-    // this._modalButton = this._modalElement.querySelector
+    this._modalButton = this._modalElement.querySelector(".modal__button");
+  }
+
+  setButtonText(loading) {
+    if (loading) {
+      this._modalButton.textContent = "SAVING...";
+    }
   }
 
   close() {
@@ -27,17 +33,12 @@ class ModalWithForm extends Modal {
   }
 
   setEventListeners() {
-    this._modalForm
-      .addEventListener("submit", (e) => {
-        e.preventDefault();
-        this._handleFormSubmit(this._getInputValues());
-        this._clearForm();
-        this.close();
-      })
-      .then(() => {
-        this._clearForm();
-        this.close();
-      });
+    this._modalForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+      this._clearForm();
+      this.close();
+    });
     super.setEventListeners();
   }
 }

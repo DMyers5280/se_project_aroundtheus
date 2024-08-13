@@ -184,9 +184,7 @@ profilePictureButton.addEventListener("click", () => {
 });
 
 function handleProfilePictureSubmit(data) {
-  const saveButton = document.getElementById("modal-save-button");
-  saveButton.textContent = "SAVING...";
-  // profilePictureModal.setButtonText(loading);
+  setButtonText();
   api
     .profilePictureReq(data.link)
     .then((result) => {
@@ -198,11 +196,7 @@ function handleProfilePictureSubmit(data) {
       console.error(err);
     })
     .finally(() => {
-      if (err) {
-        saveButton.textContent = "SAVE FAILED";
-      } else {
-        saveButton.textContent = "SAVE SUCCEEDED";
-      }
+      saveButton.textContent = "SAVE";
     });
 }
 
