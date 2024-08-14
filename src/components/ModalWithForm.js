@@ -11,7 +11,11 @@ class ModalWithForm extends Modal {
 
   setButtonText(loading) {
     if (loading) {
+      console.log("saving");
       this._modalButton.textContent = "SAVING...";
+    }
+    if (loading === false) {
+      this._modalButton.textContent = "SAVE";
     }
   }
 

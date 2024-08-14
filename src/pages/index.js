@@ -17,11 +17,12 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = addCardModal.querySelector("#add-card-form");
 const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
-const cardListEl = document.querySelector(".cards__list");
+// const cardListEl = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const profilePictureButton = document.querySelector(".profile__picture-button");
 const profilePictureForm = document.querySelector("#profile-picture-form");
 const section = new Section({ renderer: renderCard }, ".cards__list");
+const saveButton = document.querySelector(".modal__button");
 
 // Validation
 
@@ -184,10 +185,11 @@ profilePictureButton.addEventListener("click", () => {
 });
 
 function handleProfilePictureSubmit(data) {
-  setButtonText();
+  profilePictureModal.setButtonText(true);
   api
     .profilePictureReq(data.link)
     .then((result) => {
+      profilePictureModal.setButtonText(false);
       saveButton.textContent = "SAVE";
       userInfo.setAvatar(result);
       profilePictureModal.close();
