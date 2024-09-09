@@ -16,7 +16,6 @@ class ConfirmationModal extends Modal {
     this._modalElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleConfirmation();
-      this.close();
     });
 
     super.setEventListeners();

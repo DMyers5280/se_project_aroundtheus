@@ -9,20 +9,17 @@ import FormValidator from "../components/FormValidator.js";
 import "./index.css";
 import Api from "../components/Api.js";
 import { _ } from "core-js/";
+import { profileEditButton } from "../utils/constants.js";
+import { addCardForm } from "../utils/constants.js";
+import { profileEditForm } from "../utils/constants.js";
+import { addNewCardButton } from "../utils/constants.js";
+import { profilePictureButton } from "../utils/constants.js";
+import { profilePictureForm } from "../utils/constants.js";
+import { saveButton } from "../utils/constants.js";
 
 // Buttons and Other Dom Nodes
 
-const profileEditButton = document.querySelector("#profile-edit-button");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const addCardModal = document.querySelector("#add-card-modal");
-const addCardForm = addCardModal.querySelector("#add-card-form");
-const profileEditForm = profileEditModal.querySelector("#edit-profile-form");
-// const cardListEl = document.querySelector(".cards__list");
-const addNewCardButton = document.querySelector(".profile__add-button");
-const profilePictureButton = document.querySelector(".profile__picture-button");
-const profilePictureForm = document.querySelector("#profile-picture-form");
 const section = new Section({ renderer: renderCard }, ".cards__list");
-const saveButton = document.querySelector(".modal__button");
 
 // Validation
 
@@ -82,6 +79,7 @@ function handleDeleteClick(card) {
     api
       .deleteCardReq(card.id)
       .then(() => {
+        confirmationModal.close();
         card.remove();
       })
       .catch((err) => {
@@ -104,31 +102,36 @@ modalWithImage.setEventListeners();
 
 // Modal Form Popup
 
-const newCardModal = new ModalWithForm(
+const addCardModal = new ModalWithForm(
   "#add-card-modal",
   handleAddCardFormSubmit
 );
 
 addNewCardButton.addEventListener("click", () => {
-  newCardModal.open();
+  addCardModal.open();
 });
 
 function handleAddCardFormSubmit(data) {
   const name = data.name;
   const link = data.link;
+  addCardModal.setButtonText(true);
   api
     .newCardReq(name, link)
     .then((result) => {
+      addCardModal.setButtonText(false);
       const { name, link } = result;
       renderCard(result);
-      newCardModal.close();
+      addCardModal.close();
       addCardFormValidator.disableButton();
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      saveButton.textContent = "SAVE";
     });
 }
-newCardModal.setEventListeners();
+addCardModal.setEventListeners();
 
 // Card Delete Modal Popup
 
@@ -138,7 +141,7 @@ function handleCardDeleteClick(card) {
 
 // --------------------------------------
 
-const editFormModal = new ModalWithForm(
+const profileEditModal = new ModalWithForm(
   "#profile-edit-modal",
   handleProfileEditSubmit
 );
@@ -148,22 +151,27 @@ profileEditButton.addEventListener("click", () => {
   profileEditForm.querySelector(".modal__input_type_title").value = name;
   profileEditForm.querySelector(".modal__input_type_description").value = about;
   editFormValidator.toggleButtonState();
-  editFormModal.open();
+  profileEditModal.open();
 });
 
 function handleProfileEditSubmit(data) {
+  profileEditModal.setButtonText(true);
   api
     .uploadProfileReq(data)
     .then((result) => {
+      profileEditModal.setButtonText(false);
       userInfo.setUserInfo(result);
-      editFormModal.close();
+      profileEditModal.close();
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      saveButton.textContent = "SAVE";
     });
 }
 
-editFormModal.setEventListeners();
+profileEditModal.setEventListeners();
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
@@ -190,9 +198,9 @@ function handleProfilePictureSubmit(data) {
     .profilePictureReq(data.link)
     .then((result) => {
       profilePictureModal.setButtonText(false);
-      saveButton.textContent = "SAVE";
       userInfo.setAvatar(result);
       profilePictureModal.close();
+      profilePictureValidator.disableButton();
     })
     .catch((err) => {
       console.error(err);
