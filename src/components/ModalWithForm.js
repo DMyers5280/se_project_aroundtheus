@@ -19,9 +19,9 @@ class ModalWithForm extends Modal {
     }
   }
 
-  close() {
-    super.close();
-  }
+  // close() {
+  //   super.close();
+  // }
 
   _clearForm() {
     this._modalForm.reset();

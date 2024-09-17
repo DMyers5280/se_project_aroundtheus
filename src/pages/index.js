@@ -118,7 +118,6 @@ function handleAddCardFormSubmit(data) {
   api
     .newCardReq(name, link)
     .then((result) => {
-      addCardModal.setButtonText(false);
       const { name, link } = result;
       renderCard(result);
       addCardModal.close();
@@ -128,7 +127,7 @@ function handleAddCardFormSubmit(data) {
       console.error(err);
     })
     .finally(() => {
-      saveButton.textContent = "SAVE";
+      addCardModal.setButtonText(false);
     });
 }
 addCardModal.setEventListeners();
