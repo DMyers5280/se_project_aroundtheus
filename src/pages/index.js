@@ -16,20 +16,13 @@ import { addNewCardButton } from "../utils/constants.js";
 import { profilePictureButton } from "../utils/constants.js";
 import { profilePictureForm } from "../utils/constants.js";
 import { saveButton } from "../utils/constants.js";
+import { validationOptions } from "../utils/constants.js";
 
 // Buttons and Other Dom Nodes
 
 const section = new Section({ renderer: renderCard }, ".cards__list");
 
 // Validation
-
-const validationOptions = {
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
 
 const editFormValidator = new FormValidator(validationOptions, profileEditForm);
 const addCardFormValidator = new FormValidator(validationOptions, addCardForm);
@@ -120,6 +113,7 @@ function handleAddCardFormSubmit(data) {
     .then((result) => {
       const { name, link } = result;
       renderCard(result);
+      addCardModal.clearForm();
       addCardModal.close();
       addCardFormValidator.disableButton();
     })
@@ -158,15 +152,15 @@ function handleProfileEditSubmit(data) {
   api
     .uploadProfileReq(data)
     .then((result) => {
-      profileEditModal.setButtonText(false);
       userInfo.setUserInfo(result);
+      profileEditModal.clearForm();
       profileEditModal.close();
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => {
-      saveButton.textContent = "SAVE";
+      profileEditModal.setButtonText(false);
     });
 }
 
@@ -196,8 +190,8 @@ function handleProfilePictureSubmit(data) {
   api
     .profilePictureReq(data.link)
     .then((result) => {
-      profilePictureModal.setButtonText(false);
       userInfo.setAvatar(result);
+      profilePictureModal.clearForm();
       profilePictureModal.close();
       profilePictureValidator.disableButton();
     })
@@ -205,7 +199,7 @@ function handleProfilePictureSubmit(data) {
       console.error(err);
     })
     .finally(() => {
-      saveButton.textContent = "SAVE";
+      profilePictureModal.setButtonText(false);
     });
 }
 

@@ -13,5 +13,11 @@ export const profilePictureButton = document.querySelector(
 export const profilePictureForm = document.querySelector(
   "#profile-picture-form"
 );
-
 export const saveButton = document.querySelector(".modal__button");
+export const validationOptions = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
