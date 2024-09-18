@@ -68,7 +68,6 @@ class FormValidator {
     this._formEl.addEventListener("submit", (e) => {
       e.preventDefault();
       if (this._hasInvalidInput(this._inputEls)) {
-        this.disableButton();
       }
     });
     this._setEventListeners();

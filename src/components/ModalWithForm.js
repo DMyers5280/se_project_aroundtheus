@@ -6,19 +6,29 @@ class ModalWithForm extends Modal {
     this._modalForm = this._modalElement.querySelector(".modal__form");
     this._handleFormSubmit = handleFormSubmit.bind(this);
     this._modalInput = this._modalForm.querySelector(".modal__input");
+    this._modalButton = this._modalElement.querySelector(".modal__button");
   }
 
-  close() {
+  setButtonText(loading) {
+    if (loading) {
+      console.log("saving");
+      this._modalButton.textContent = "SAVING...";
+    }
+    if (loading === false) {
+      this._modalButton.textContent = "SAVE";
+    }
+  }
+
+  clearForm() {
     this._modalForm.reset();
-    super.close();
   }
 
   _getInputValues() {
-    const inputList = [...this._modalForm.querySelectorAll('input')];
+    const inputList = [...this._modalForm.querySelectorAll("input")];
     const inputValues = {};
     for (const input of inputList) {
       inputValues[input.name] = input.value;
-    };
+    }
     return inputValues;
   }
 
@@ -26,7 +36,6 @@ class ModalWithForm extends Modal {
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      this.close();
     });
     super.setEventListeners();
   }
